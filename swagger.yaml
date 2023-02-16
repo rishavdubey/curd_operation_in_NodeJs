@@ -1,0 +1,196 @@
+openapi: "3.0.0"
+info:
+  title: Assigment of Ineuron
+  description: Here writing of Api docs using swagger yamljs
+  version: 1.1.0
+  contact:
+    email: rishavdubey000@gmail.com
+    url: "https://www.linkedin.com/in/rishav-kr-dubey/"
+
+# servers:
+#   - url: "https://localhost:4000/api/v1"
+#     description: for local host - secure
+#   - url: "http://localhost:4000/api/v1"
+#     description: for local host - regular
+
+servers:
+  - url: "{protocol}://localhost:4000/api/{version}"
+    description: for local host - secure
+    variables:
+      version:
+        enum:
+          - v1
+          - v2
+        default: v1
+      protocol:
+        enum:
+          - http
+          - https
+        default: http
+
+components:
+  securitySchemes:
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: token
+    BearerAuth:
+      type: http
+      scheme: bearer
+
+paths:
+  /items:
+    get:
+      tags:
+        - Array of items
+      summary: returns items in database
+      responses:
+        200:
+          description: All good success
+          content: 
+            array:
+              schema:
+                type: object
+                properties:
+                  name: 
+                    type: string
+                  description:
+                    type: string
+                  price:
+                    type: number
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+    
+    post:
+      tags:
+        - Boolean
+      summary: adds a new item a existing items
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+      responses:
+        200:
+          description: All good success
+          content: 
+            application/json:
+              schema:
+                type: boolean
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+  
+  /items/{itemId}:
+    get:
+      tags:
+        - Json of item
+      summary: returns item based on request id
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          default: 22
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good success
+          content: 
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id: 
+                    type: string
+                  name:
+                    type: string
+                  price:
+                    type: number
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+
+    put:
+      tags:
+        - Boolean
+      summary: update the existing items
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          default: 22
+          schema:
+            type: string
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                description:
+                  type: string
+                price:
+                  type: number
+      responses:
+        200:
+          description: All good success
+          content: 
+            application/json:
+              schema:
+                type: boolean
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+    
+    delete:
+      tags:
+        - Boolean
+      summary: delete the existing items
+      parameters: 
+        - name: itemId
+          in: path
+          required: true
+          default: 22
+          schema:
+            type: string
+      responses:
+        200:
+          description: All good success
+          content: 
+            application/json:
+              schema:
+                type: boolean
+                  
+        400:
+          description: Bad request
+        500:
+          description: internal server error
+    
