@@ -1,14 +1,14 @@
 {
   "name": "project2",
   "version": "1.0.0",
-  "description": "",
+  "description": "assignment of ineuron",
   "main": "server.js",
   "scripts": {
     "dev": "nodemon server.js",
     "start": "node server.js",
     "test": "jest"
   },
-  "author": "",
+  "author": "Rishav Kumar Dubey",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.20.1",
